@@ -12,7 +12,7 @@
               <div class="col-lg-4 col-md-6 col-sm-6 col-8 clear-col pr-3">
                 <label for="name">Category</label>
                 <select class="form-control" v-model="selectedCat">
-                  <option value="">Select a Category</option>
+                  <option value="jumia-global">Select a Category</option>
                   <option v-for="(cat, key) of categories" :key="key" :value="cat.value">
                     {{ cat.key }}
                   </option>
@@ -85,11 +85,14 @@ export default {
   data() {
     return {
       categories: CATEGORIES,
-      selectedCat: '',
+      selectedCat: 'jumia-global',
       target: 50,
       products: [],
       email: '',
     };
+  },
+  mounted() {
+    this.handleSearch('jumia-global');
   },
   methods: {
     async handleSearch(e) {
