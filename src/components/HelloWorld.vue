@@ -1,22 +1,33 @@
 <template>
   <div class="scrape_container pt-3">
     <h3 class="text-center">JScrapper</h3>
-    <h6 class="text-center mb-3">Get the best discount from Jumia NG.
+    <h6 class="text-center">Get the best discount from Jumia NG.
        JScrapper helps you find products with the
         highest discount available on Jumia the biggest Ecommerce Site in Nigeria</h6>
+        <p class="text-center mb-3">Let Us do the hardwork for you.</p>
     <div class="d__container px-md-5 px-sm-3">
       <div style="flex-grow: 1; border: 1px solid #111; min-height: 80vh" class="p-3">
         <div class="">
           <form>
             <div class="row clear-row">
               <div class="col-lg-4 col-md-6 col-sm-6 col-8 clear-col pr-3">
-                <label for="name">Category</label>
-                <select class="form-control" v-model="selectedCat">
-                  <option value="jumia-global">Select a Category</option>
-                  <option v-for="(cat, key) of categories" :key="key" :value="cat.value">
-                    {{ cat.key }}
-                  </option>
-                </select>
+                <template v-if="custom">
+                  <label for="search">Url</label>
+                  <input type="text"
+                    class="form-control"
+                      id="search"
+                      v-model="search"
+                      placeholder="Enter the Jumia Url you want to Search">
+                </template>
+                <template v-else>
+                  <label for="name">Category</label>
+                  <select class="form-control" v-model="selectedCat">
+                    <option value="jumia-global">Select a Category</option>
+                    <option v-for="(cat, key) of categories" :key="key" :value="cat.value">
+                      {{ cat.key }}
+                    </option>
+                  </select>
+                </template>
               </div>
               <div class="col-lg-2 col-md-4 col-sm-4 col-4 clear-col">
                 <label for="name">Discount</label>
@@ -25,6 +36,13 @@
                   v-model="target"
                   class="form-control"
                   placeholder="discount e.g 75">
+              </div>
+              <div class="col-1 clear-col pl-2 d-flex">
+               <span class="badge badge-pill my-auto"
+                :class="custom ? 'badge-primary' : 'badge-secondary'"
+                 @click="custom=!custom">
+                 {{custom ? 'Back' : 'Custom Search'}}
+                 </span>
               </div>
             </div>
           </form>
@@ -89,6 +107,8 @@ export default {
       target: 50,
       products: [],
       email: '',
+      custom: false,
+      search: '',
     };
   },
   mounted() {
@@ -96,7 +116,12 @@ export default {
   },
   methods: {
     async handleSearch(e) {
-      const page = `https://www.jumia.com.ng/${e}`;
+      let page;
+      if (this.custom) {
+        page = this.search;
+      } else {
+        page = `https://www.jumia.com.ng/${e}`;
+      }
       const { target } = this;
       try {
         const { data } = await HTTP.post('', { page, target });

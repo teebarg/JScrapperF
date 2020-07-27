@@ -1,5 +1,6 @@
 <template>
   <div class="card">
+  <img :src="product.img" class="card-img-top" :alt="product.img">
   <div class="card-body d-flex flex-column">
     <h6 class="card-title">{{product.name}}</h6>
     <div class="mt-auto">
@@ -24,3 +25,14 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+  .card-img-top{
+      max-height: 160px;
+      height: 100%;
+  }
+  .card-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+  }
+</style>

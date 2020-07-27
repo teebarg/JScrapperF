@@ -76,10 +76,17 @@
     <div class="footer_bottom">
       <div class="container">
         <div class="row align-items-center">
-          <div class="col-12">
+          <div class="col-6">
             <p class="mb-0 f_400">
               © Cynatics Inc.. {{new Date().getFullYear()}} All rights reserved.
             </p>
+          </div>
+          <div class="col-6">
+            <h6 class="mb-0 f_400">
+              Disclaimer: <span style="font-size: 80%">
+                JScrapper is not an affiliate of JUMIA.
+                </span>
+            </h6>
           </div>
         </div>
       </div>
