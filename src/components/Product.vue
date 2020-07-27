@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-  <img :src="product.img" class="card-img-top" :alt="product.img">
+  <img :src="product.img || placeholder" class="card-img-top" :alt="product.img">
   <div class="card-body d-flex flex-column">
     <h6 class="card-title">{{product.name}}</h6>
     <div class="mt-auto">
@@ -18,7 +18,10 @@
 <script>
 export default {
   name: 'Product',
-  methods: {
+  data() {
+    return {
+      placeholder: '/image/product_placeholder.svg',
+    };
   },
   props: {
     product: Object,
